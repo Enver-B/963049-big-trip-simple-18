@@ -1,6 +1,6 @@
 import {createElement} from '../render.js';
 
-const createEventsTemplate = () => '<section class="trip-events"></section>';
+const createEventsTemplate = () => '<div class="page-body__container"></div>';
 
 export default class EventsContainerView {
   getTemplate() {
