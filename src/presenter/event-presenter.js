@@ -1,5 +1,5 @@
-import EventEditFormView from '../view/event-edit-form-view.js';
-import EventView from '../view/event-view.js';
+import EventEditFormView from '../view/new-edit-form-view.js';
+import EventView from '../view/new-point-view.js';
 import EventsContainerView from '../view/events-container-view.js';
 import EventsListView from '../view/events-list-view.js';
 //import NewEventAddBtnView from '../view/new-event-add-btn-view.js';
@@ -11,8 +11,11 @@ export default class EventPresenter {
   eventComponent = new EventsContainerView();
   eventListComponent = new EventsListView();
 
-  init = (eventContainer) => {
+  init = (eventContainer, pointModel) => {
     this.eventContainer = eventContainer;
+    this.pointModel = pointModel;
+    this.containerPoint = [...this.pointModel.getPoints()];
+    this.containerPoint = [...this.pointModel.getOffers()];
 
     render(this.eventComponent, this.eventContainer);
     render(new SortView(), this.eventComponent.getElement());
@@ -21,6 +24,10 @@ export default class EventPresenter {
 
     for (let i = 0; i < 3; i++) {
       render(new EventView(), this.eventListComponent.getElement());
+    }
+    for (let i = 0; i < this.containerPoint.length; i++) {
+      render(new EventView(this.containerPoint[i]),
+        this.eventListComponent.getElement());
     }
   };
 }
