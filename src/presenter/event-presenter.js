@@ -20,12 +20,9 @@ export default class EventPresenter {
     render(this.eventComponent, this.eventContainer);
     render(new SortView(), this.eventComponent.getElement());
     render(this.eventListComponent, this.eventComponent.getElement());
-    render(new EventEditFormView(), this.eventListComponent.getElement());
+    render(new EventEditFormView(this.containerPoint[0]), this.eventListComponent.getElement());
 
-    for (let i = 0; i < 3; i++) {
-      render(new EventView(), this.eventListComponent.getElement());
-    }
-    for (let i = 0; i < this.containerPoint.length; i++) {
+    for (let i = 1; i < this.containerPoint.length; i++) {
       render(new EventView(this.containerPoint[i]),
         this.eventListComponent.getElement());
     }
