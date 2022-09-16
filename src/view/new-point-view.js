@@ -1,24 +1,23 @@
 import {createElement} from '../render.js';
-import {humanizeTaskDueDate} from '../utils.js';
+import {humanizeTaskDueDate, humanizeTaskDueTime} from '../utils.js';
 
 const createEventTemplate = (point, offer) => {
   const {basePrice, dateFrom, dateTo, destination, type} = point;
-  const {title, price} = offer;
+  const {title, price} = offer.shift();
 
   const eventDate = dateFrom
     ? humanizeTaskDueDate(dateFrom)
     : '';
 
   const endTime = dateTo
-    ? humanizeTaskDueDate(dateTo)
+    ? humanizeTaskDueTime(dateTo)
     : '';
 
   const startTime = dateFrom
-    ? humanizeTaskDueDate(dateFrom)
+    ? humanizeTaskDueTime(dateFrom)
     : '';
 
-  return (
-    `<li class="trip-events__item">
+  return (`<li class="trip-events__item">
               <div class="event">
                 <time class="event__date" datetime="2019-03-18">${eventDate}</time>
                 <div class="event__type">
@@ -47,19 +46,17 @@ const createEventTemplate = (point, offer) => {
                   <span class="visually-hidden">Open event</span>
                 </button>
               </div>
-            </li>`
-  );
+            </li>`);
 };
 
-
 export default class EventView {
-  constructor(point, offer){
-    this.point = point;
-    this.offer = offer;
+  constructor(point, offer) {
+    this.points = point;
+    this.offers = offer;
   }
 
   getTemplate() {
-    return createEventTemplate(this.point, this.offer);
+    return createEventTemplate(this.points, this.offers);
   }
 
   getElement() {

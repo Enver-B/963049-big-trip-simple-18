@@ -18,10 +18,12 @@ const generateOfferId = () => {
 
 export const generatePoint = () => ({
   basePrice: getRandomInteger(1000, 5000),
-  dateFrom: '2019-07-10T22:55:56.845Z',
-  dateTo: '2019-07-11T11:22:13.375Z',
+  dateFrom: `2019-07-${getRandomInteger(10,30)}T22:55:56.845Z`,
+  dateTo: `2019-07-${getRandomInteger(10,30)}T11:22:13.375Z`,
   destination: generateDestination(),
   id: '0',
   offers: generateOfferId() ,
   type: generateTransportType()
 });
+
+

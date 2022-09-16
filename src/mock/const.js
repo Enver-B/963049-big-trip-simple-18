@@ -17,11 +17,12 @@ const PICTURE_DESCRIPTIONS = ['Sed blandit, eros vel aliquam faucibus, ' +
 'nunc ex, convallis sed finibus eget, sollicitudin eget ante', 'Phasellus' +
 'eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum'];
 
-const ID = ['1','2','3','4','5'];
+const OFFER_ID = ['1','2','3','4','5'];
+const DESTINATION_ID = ['1','2','3','4','5'];
 
 const OFFER_TITLE = ['Upgrade to a business class', 'Choose the radio station',
   'Choose temperature', 'Drive quickly, I am in a hurry', 'Drive slowly'];
 
 const OFFER_PRICE = ['190','30','170','100','110'];
 
-export {TRANSPORT_TYPES, NAME_CITIES, DESCRIPTIONS, PICTURE_DESCRIPTIONS, ID, OFFER_PRICE, OFFER_TITLE};
+export {TRANSPORT_TYPES, NAME_CITIES, DESCRIPTIONS, PICTURE_DESCRIPTIONS, DESTINATION_ID, OFFER_ID, OFFER_PRICE, OFFER_TITLE};

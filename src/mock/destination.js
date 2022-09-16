@@ -1,5 +1,11 @@
-import {NAME_CITIES, DESCRIPTIONS, PICTURE_DESCRIPTIONS, ID} from './const.js';
+import {NAME_CITIES, DESCRIPTIONS, PICTURE_DESCRIPTIONS, DESTINATION_ID} from './const.js';
 import {getRandomInteger} from '../utils.js';
+
+const generateDestinationId = () => {
+  const randomIndex = getRandomInteger(0, DESTINATION_ID.length - 1);
+
+  return DESTINATION_ID[randomIndex];
+};
 
 const generateCities = () => {
   const randomIndex = getRandomInteger(0, NAME_CITIES.length - 1);
@@ -20,7 +26,7 @@ const generatePictureDescription = () => {
 };
 
 export const generateDestination = () => ({
-  id: getRandomInteger(ID),
+  id: generateDestinationId(),
   description: generateDescription(),
   name: generateCities(),
   pictures: [

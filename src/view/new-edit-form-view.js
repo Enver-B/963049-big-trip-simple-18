@@ -1,18 +1,19 @@
 import {createElement} from '../render.js';
-import {humanizeTaskDueDate} from '../utils.js';
 
-const createEventEditFormTemplate = (point, offer) => {
-  const {basePrice, dateFrom, dateTo, destination, type} = point;
-  const {title, price} = offer;
-  const {description} = destination;
+const createEventEditFormTemplate = (destination, point, offer) => {
+  const {type} = point;
+  const {description, name} = destination;
 
-  const endTime = dateTo
-    ? humanizeTaskDueDate(dateTo)
-    : '';
-
-  const startTime = dateFrom
-    ? humanizeTaskDueDate(dateFrom)
-    : '';
+  const offersList = offer.map((offerItem) => (
+    `<div class="event__offer-selector">
+                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
+                        <label class="event__offer-label" for="event-offer-luggage-1">
+                          <span class="event__offer-title">${offerItem.title}</span>
+                          &plus;&euro;&nbsp;
+                          <span class="event__offer-price">${offerItem.price}</span>
+                        </label>
+                      </div>`
+  ));
 
   return (
     `<form class="event event--edit" action="#" method="post">
@@ -30,47 +31,47 @@ const createEventEditFormTemplate = (point, offer) => {
 
                         <div class="event__type-item">
                           <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-                          <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">${type}</label>
+                          <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
-                          <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">${type}</label>
+                          <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">Bus</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
-                          <label class="event__type-label  event__type-label--train" for="event-type-train-1">${type}</label>
+                          <label class="event__type-label  event__type-label--train" for="event-type-train-1">Train</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
-                          <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">${type}</label>
+                          <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">Ship</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-drive-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
-                          <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">${type}</label>
+                          <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">Drive</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked>
-                          <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">${type}</label>
+                          <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">Flight</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-check-in-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
-                          <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">${type}</label>
+                          <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">Check-in</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-sightseeing-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
-                          <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">${type}</label>
+                          <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">Sightseeing</label>
                         </div>
 
                         <div class="event__type-item">
                           <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
-                          <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">${type}</label>
+                          <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">Restaurant</label>
                         </div>
                       </fieldset>
                     </div>
@@ -78,9 +79,9 @@ const createEventEditFormTemplate = (point, offer) => {
 
                   <div class="event__field-group  event__field-group--destination">
                     <label class="event__label  event__type-output" for="event-destination-1">
-                      Flight
+                      ${type}
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
+                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value=${name} list="destination-list-1">
                     <datalist id="destination-list-1">
                       <option value="Amsterdam"></option>
                       <option value="Geneva"></option>
@@ -90,10 +91,10 @@ const createEventEditFormTemplate = (point, offer) => {
 
                   <div class="event__field-group  event__field-group--time">
                     <label class="visually-hidden" for="event-start-time-1">From</label>
-                    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 ${startTime}">
+                    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="19/03/19 00:00">
                     &mdash;
                     <label class="visually-hidden" for="event-end-time-1">To</label>
-                    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 ${endTime}">
+                    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="19/03/19 00:00">
                   </div>
 
                   <div class="event__field-group  event__field-group--price">
@@ -101,85 +102,50 @@ const createEventEditFormTemplate = (point, offer) => {
                       <span class="visually-hidden">Price</span>
                       &euro;
                     </label>
-                    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${basePrice}">
+                    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="">
                   </div>
 
                   <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-                  <button class="event__reset-btn" type="reset">Delete</button>
-                  <button class="event__rollup-btn" type="button">
-                    <span class="visually-hidden">Open event</span>
-                  </button>
+                  <button class="event__reset-btn" type="reset">Cancel</button>
                 </header>
                 <section class="event__details">
                   <section class="event__section  event__section--offers">
                     <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
                     <div class="event__available-offers">
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
-                        <label class="event__offer-label" for="event-offer-luggage-1">
-                          <span class="event__offer-title">${title}</span>
-                          &plus;&euro;&nbsp;
-                          <span class="event__offer-price">${price}</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked>
-                        <label class="event__offer-label" for="event-offer-comfort-1">
-                          <span class="event__offer-title">${title}</span>
-                          &plus;&euro;&nbsp;
-                          <span class="event__offer-price">${price}</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
-                        <label class="event__offer-label" for="event-offer-meal-1">
-                          <span class="event__offer-title">${title}</span>
-                          &plus;&euro;&nbsp;
-                          <span class="event__offer-price">${price}</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
-                        <label class="event__offer-label" for="event-offer-seats-1">
-                          <span class="event__offer-title">${title}</span>
-                          &plus;&euro;&nbsp;
-                          <span class="event__offer-price">${price}</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-                        <label class="event__offer-label" for="event-offer-train-1">
-                          <span class="event__offer-title">${title}</span>
-                          &plus;&euro;&nbsp;
-                          <span class="event__offer-price">${price}</span>
-                        </label>
-                      </div>
+                      ${offersList}
                     </div>
                   </section>
 
                   <section class="event__section  event__section--destination">
                     <h3 class="event__section-title  event__section-title--destination">Destination</h3>
                     <p class="event__destination-description">${description}</p>
+
+                    <div class="event__photos-container">
+                      <div class="event__photos-tape">
+                        <img class="event__photo" src="img/photos/1.jpg" alt="Event photo">
+                        <img class="event__photo" src="img/photos/2.jpg" alt="Event photo">
+                        <img class="event__photo" src="img/photos/3.jpg" alt="Event photo">
+                        <img class="event__photo" src="img/photos/4.jpg" alt="Event photo">
+                        <img class="event__photo" src="img/photos/5.jpg" alt="Event photo">
+                      </div>
+                    </div>
                   </section>
                 </section>
               </form>`
   );
 };
 
+
 export default class EventEditFormView {
-  constructor(point, offer, destination){
-    this.point = point;
-    this.offer = offer;
+  constructor(destination, point, offer) {
     this.destination = destination;
+    this.points = point;
+    this.offers = offer;
   }
 
   getTemplate() {
-    return createEventEditFormTemplate (this.point, this.offer, this.destination);
+    return createEventEditFormTemplate (this.destination, this.points, this.offers);
   }
 
   getElement() {

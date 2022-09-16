@@ -17,5 +17,6 @@ const getRandomElement = (elements) => {
 const getArray = (elements) => [...new Set(elements)].slice(0, getRandomInteger(0, 8));
 
 const humanizeTaskDueDate = (dueDate) => dayjs(dueDate).format('D MMMM');
+const humanizeTaskDueTime = (dueTime) => dayjs(dueTime).format('HH:HH');
 
-export {getRandomInteger, getRandomElement, getArray, humanizeTaskDueDate};
+export {getRandomInteger, getRandomElement, getArray, humanizeTaskDueDate, humanizeTaskDueTime};
